@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caio's Non-Tech-Leader Challenge</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+</head>
+
+<body>
+
+    <table class="table table-hover" id="table">
+        <thead>
+            <tr>
+                <th scope="col">n°</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Provider</th>
+        <th scope="col">Avatar</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+const createTable = (data) => {
+    var table = document.getElementById('table').getElementsByTagName('tbody')[0];
+
+        for (let index = 0; index < data.length; index++) {
+            const rowData = data[index];
+            const row = table.insertRow(index);
+
+            const indexCell = row.insertCell(0);
+            let newText = document.createTextNode(index);
+            indexCell.appendChild(newText);
+
+            const usersCell = row.insertCell(1);
+            newText = document.createTextNode(rowData.name);
+            usersCell.appendChild(newText);
+
+            const emailCell = row.insertCell(2);
+            newText = document.createTextNode(rowData.email);
+            emailCell.appendChild(newText);
+
+            const providerCell = row.insertCell(3);
+            newText = document.createTextNode(rowData.provider);
+            providerCell.appendChild(newText);
+
+            const avatarCell = row.insertCell(4);
+            newText = document.createElement('img');
+            newText.setAttribute('src', rowData.avatar.url)
+            newText.setAttribute('height', '50px')
+            newText.setAttribute('width', '60px')
+            avatarCell.appendChild(newText);
+
+        }
+        console.log(data)
+        };
+
+(async function getNames() {
+    try {
+        const { data } = await axios.get('http://localhost:3333/users');
+        createTable(data);
+    } catch (error) {
+        console.log(error);
+    }
+})();
+</script>
+
+    <script src="bootstrap/js/bootstrap.js"></script
+</body>
+
+</html>
+
